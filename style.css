@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #0f9b8e, #1bd88a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+canvas {
+    background: #0b1f1a;
+    border-radius: 16px;
+    border: 4px solid #eafff6;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.35),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
