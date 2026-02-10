@@ -198,3 +198,48 @@ document.addEventListener('keydown', e => {
 
 playerReset();
 update();
+
+function moveLeft() {
+    if (!isPaused && !gameOver) playerMove(-1);
+}
+
+function moveRight() {
+    if (!isPaused && !gameOver) playerMove(1);
+}
+
+function drop() {
+    if (!isPaused && !gameOver) playerDrop();
+}
+
+function rotatePiece() {
+    if (!isPaused && !gameOver) playerRotate();
+}
+
+function togglePause() {
+    isPaused = !isPaused;
+}
+document.getElementById('left').addEventListener('touchstart', e => {
+    e.preventDefault();
+    moveLeft();
+});
+
+document.getElementById('right').addEventListener('touchstart', e => {
+    e.preventDefault();
+    moveRight();
+});
+
+document.getElementById('down').addEventListener('touchstart', e => {
+    e.preventDefault();
+    drop();
+});
+
+document.getElementById('rotate').addEventListener('touchstart', e => {
+    e.preventDefault();
+    rotatePiece();
+});
+
+document.getElementById('pause').addEventListener('touchstart', e => {
+    e.preventDefault();
+    togglePause();
+});
+document.body.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
