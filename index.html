@@ -13,6 +13,7 @@
 <body>
 
     <!-- Start of ChatBot (www.chatbot.com) code -->
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
         window.__ow = window.__ow || {};
         window.__ow.organizationId = "d3f8281a-0c5d-484a-9b70-bea65c0b81dd";
@@ -34,6 +35,24 @@
         <button id="right">▶</button>
         <button id="pause">⏸</button>
     </div>
+
+    <button id="checkout-button">Paga cabroonnnn</button>
+
+    <script>
+        const stripe = Stripe("pk_test_51T6nIrE32WHzGOF1oCCB9DqIeTfGmA8D9h3rv7OCycvnowHdnHGAzUZW4XPRGhZhmVl2QJ5IjfWEP8CWodn7Psl5008z3PYRmv");
+
+        document.getElementById("checkout-button")
+            .addEventListener("click", async () => {
+
+                const response = await fetch("http://localhost:4242/create-checkout-session", {
+                    method: "POST",
+                });
+
+                const session = await response.json();
+
+                stripe.redirectToCheckout({ sessionId: session.id });
+            });
+    </script>
 
 
     <script src="game.js"></script>
