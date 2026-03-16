@@ -39,24 +39,11 @@
 
         let elements;
 
-        document.getElementById("pay-button").addEventListener("click", async () => {
-
-            const response = await fetch("http://localhost:4242/create-payment-intent", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    amount: 1000   // 1 peso MXN
-                })
-            });
-            const { clientSecret } = await response.json();
+        document.getElementById("pay-button").addEventListener("click", () => {
 
             document.getElementById("payment-form").style.display = "block";
 
-            elements = stripe.elements({
-                clientSecret
-            });
+            elements = stripe.elements();
 
             const paymentElement = elements.create("payment");
             paymentElement.mount("#payment-element");
