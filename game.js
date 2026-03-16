@@ -1,8 +1,20 @@
+let canvas;
+let context;
 
+document.addEventListener("DOMContentLoaded", () => {
+    canvas = document.getElementById("tetris");
 
-const canvas = document.getElementById('tetris');
-const context = canvas.getContext('2d');
-context.scale(20, 20);
+    if (!canvas) {
+        console.error("Canvas 'tetris' no encontrado");
+        return;
+    }
+
+    context = canvas.getContext("2d");
+    context.scale(20, 20);
+
+    playerReset();
+    update();
+});
 
 const arena = createMatrix(10, 20);
 
@@ -196,5 +208,50 @@ document.addEventListener('keydown', e => {
     if (e.key.toLowerCase() === 'p') isPaused = !isPaused;
 });
 
-playerReset();
-update();
+// playerReset();
+// update();
+
+function moveLeft() {
+    if (!isPaused && !gameOver) playerMove(-1);
+}
+
+function moveRight() {
+    if (!isPaused && !gameOver) playerMove(1);
+}
+
+function drop() {
+    if (!isPaused && !gameOver) playerDrop();
+}
+
+function rotatePiece() {
+    if (!isPaused && !gameOver) playerRotate();
+}
+
+function togglePause() {
+    isPaused = !isPaused;
+}
+document.getElementById('left').addEventListener('touchstart', e => {
+    e.preventDefault();
+    moveLeft();
+});
+
+document.getElementById('right').addEventListener('touchstart', e => {
+    e.preventDefault();
+    moveRight();
+});
+
+document.getElementById('down').addEventListener('touchstart', e => {
+    e.preventDefault();
+    drop();
+});
+
+document.getElementById('rotate').addEventListener('touchstart', e => {
+    e.preventDefault();
+    rotatePiece();
+});
+
+document.getElementById('pause').addEventListener('touchstart', e => {
+    e.preventDefault();
+    togglePause();
+});
+document.body.addEventListener('touchmove', e => e.preventDefault(), { passive: false });

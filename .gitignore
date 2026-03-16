@@ -1,0 +1,45 @@
+# Node modules
+node_modules/
+.env
+stripe-backend/.env
+
+# Environment variables (muy importante para Stripe)
+.env
+.env.local
+.env.development
+.env.production
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+
+# Build folders
+dist/
+build/
+
+# Service worker cache
+sw.js.map
+
+# Temporary files
+*.tmp
+*.temp
+
+# Coverage
+coverage/
+
+# Local server files
+server/node_modules/
+
+# Stripe secrets (muy importante)
+config/secrets.json
