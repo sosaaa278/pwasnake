@@ -1,8 +1,20 @@
+let canvas;
+let context;
 
+document.addEventListener("DOMContentLoaded", () => {
+    canvas = document.getElementById("tetris");
 
-const canvas = document.getElementById('tetris');
-const context = canvas.getContext('2d');
-context.scale(20, 20);
+    if (!canvas) {
+        console.error("Canvas 'tetris' no encontrado");
+        return;
+    }
+
+    context = canvas.getContext("2d");
+    context.scale(20, 20);
+
+    playerReset();
+    update();
+});
 
 const arena = createMatrix(10, 20);
 
@@ -196,8 +208,8 @@ document.addEventListener('keydown', e => {
     if (e.key.toLowerCase() === 'p') isPaused = !isPaused;
 });
 
-playerReset();
-update();
+// playerReset();
+// update();
 
 function moveLeft() {
     if (!isPaused && !gameOver) playerMove(-1);

@@ -4,32 +4,40 @@ const Stripe = require("stripe");
 const cors = require("cors");
 
 const app = express();
+
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 app.use(cors());
 app.use(express.json());
 
-app.post("/create-checkout-session", async (req, res) => {
-    const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        line_items: [
-            {
-                price_data: {
-                    currency: "mxn",
-                    product_data: {
-                        name: "Producto PWA",
-                    },
-                    unit_amount: 5000, // $50.00 MXN
-                },
-                quantity: 1,
-            },
-        ],
-        mode: "payment",
-        success_url: "http://localhost:3000/success.html",
-        cancel_url: "http://localhost:3000/cancel.html",
-    });
+app.post("/create-payment-intent", async (req, res) => {
 
-    res.json({ id: session.id });
+    const { amount } = req.body;
+
+    try {
+
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: amount,
+            currency: "mxn",
+            payment_method_types: ["card"],
+        });
+
+        res.json({
+            clientSecret: paymentIntent.client_secret
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            error: error.message
+        });
+
+    }
+
 });
 
-app.listen(4242, () => console.log("Servidor corriendo en puerto 4242"));
+app.listen(4242, () => {
+    console.log("Servidor corriendo en http://localhost:4242");
+});

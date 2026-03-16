@@ -12,6 +12,7 @@
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
+    "experss": "^0.0.1-security",
     "express": "^5.2.1",
     "stripe": "^20.4.0"
   }

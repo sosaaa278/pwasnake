@@ -1,4 +1,5 @@
-const CACHE_NAME = "snake-pwa-cachev2";
+const CACHE_NAME = "snake-pwa-cachev4";
+
 const FILES = [
     "index.html",
     "style.css",
@@ -13,10 +14,14 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("fetch", event => {
+
+    if (event.request.url.includes("stripe")) {
+        return;
+    }
+
     event.respondWith(
         caches.match(event.request).then(
             response => response || fetch(event.request)
         )
     );
 });
-
