@@ -7,11 +7,14 @@ body {
     height: 100vh;
     background: linear-gradient(135deg, #0f9b8e, #1bd88a);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    /* 🔧 cambio importante */
     align-items: center;
+    /* 🔧 cambio importante */
     font-family: 'Segoe UI', Arial, sans-serif;
 }
 
+/* 🎮 canvas */
 canvas {
     background: #0b1f1a;
     border-radius: 16px;
@@ -21,13 +24,17 @@ canvas {
         inset 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
+/* 🎮 controles */
 .controls {
     position: relative;
-    bottom: 20px;
-    display: flex;
-    gap: 12px;
-    user-select: none;
-    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 90%;
+    margin-top: 10px;
+    /* 🔧 en vez de bottom */
+    z-index: 1;
+    /* 🔧 bajamos prioridad */
 }
 
 .controls button {
@@ -47,6 +54,7 @@ canvas {
     background: #c6fff0;
 }
 
+/* 🎮 canvas responsive */
 #tetris {
     width: 90vw;
     max-width: 320px;
@@ -55,32 +63,26 @@ canvas {
     margin: auto;
 }
 
+/* 💳 botón de pago */
+#pay-button {
+    position: relative;
+    z-index: 10;
+    /* 🔧 encima de controles */
+    margin-top: 20px;
+    /* 🔧 separación */
+    width: 90%;
+    /* 🔧 mejor en celular */
+}
+
+/* botones generales */
 button {
     font-size: 20px;
     padding: 12px 20px;
     border-radius: 10px;
+    touch-action: manipulation;
 }
 
-.controls {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    width: 90%;
-    margin: auto;
-}
-
-#pay-button {
-    position: relative;
-    z-index: 20;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #0b1f1a;
-}
-
+/* 📱 responsive */
 @media (max-width: 600px) {
     #tetris {
         width: 95vw;
@@ -89,12 +91,4 @@ body {
     button {
         font-size: 18px;
     }
-}
-
-button {
-    touch-action: manipulation;
-}
-
-button {
-    touch-action: manipulation;
 }
