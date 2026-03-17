@@ -41,25 +41,27 @@
 
         document.getElementById("pay-button").addEventListener("click", async () => {
 
-            const response = await fetch("http://localhost:4242/create-payment-intent", {
+            const response = await fetch("pwasnake-kmweph5zb-sosaaa278s-projects.vercel.app/create-payment-intent", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    amount: 1000   // 1 peso MXN
+                    amount: 1000
                 })
             });
+
             const { clientSecret } = await response.json();
 
             document.getElementById("payment-form").style.display = "block";
 
-            elements = stripe.elements({
+            const elements = stripe.elements({
                 clientSecret
             });
 
             const paymentElement = elements.create("payment");
             paymentElement.mount("#payment-element");
+
         });
 
         document
