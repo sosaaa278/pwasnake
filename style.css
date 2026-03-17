@@ -45,3 +45,58 @@ canvas {
     transform: scale(0.9);
     background: #c6fff0;
 }
+
+#tetris {
+    width: 90vw;
+    max-width: 320px;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+button {
+    font-size: 20px;
+    padding: 12px 20px;
+    border-radius: 10px;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 90%;
+    margin: auto;
+}
+
+#pay-button {
+    width: 90%;
+    padding: 15px;
+    font-size: 18px;
+    margin: 20px auto;
+    display: block;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #0b1f1a;
+}
+
+@media (max-width: 600px) {
+    #tetris {
+        width: 95vw;
+    }
+
+    button {
+        font-size: 18px;
+    }
+}
+
+button {
+    touch-action: manipulation;
+}
+
+button {
+    touch-action: manipulation;
+}
