@@ -39,14 +39,29 @@
 
         let elements;
 
-        document.getElementById("pay-button").addEventListener("click", () => {
+        document.getElementById("pay-button").addEventListener("click", async () => {
+
+            const response = await fetch("pwasnake-kmweph5zb-sosaaa278s-projects.vercel.app/create-payment-intent", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    amount: 1000
+                })
+            });
+
+            const { clientSecret } = await response.json();
 
             document.getElementById("payment-form").style.display = "block";
 
-            elements = stripe.elements();
+            const elements = stripe.elements({
+                clientSecret
+            });
 
             const paymentElement = elements.create("payment");
             paymentElement.mount("#payment-element");
+
         });
 
         document
