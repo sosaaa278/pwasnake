@@ -26,15 +26,15 @@ canvas {
 
 /* 🎮 controles */
 .controls {
-    position: relative;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
     width: 90%;
     margin-top: 10px;
-    /* 🔧 en vez de bottom */
+
+    position: static;
+    /* 🔥 clave: quitar cualquier posicionamiento raro */
     z-index: 1;
-    /* 🔧 bajamos prioridad */
 }
 
 .controls button {
