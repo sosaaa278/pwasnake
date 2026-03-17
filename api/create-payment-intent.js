@@ -27,9 +27,7 @@ export default async function handler(req, res) {
         const paymentIntent = await stripe.paymentIntents.create({
             amount: amount || 1000, // 1000 = $10.00 MXN (centavos)
             currency: "mxn",
-            automatic_payment_methods: {
-                enabled: true,
-            },
+
         });
 
         // 🔑 Enviar clientSecret al frontend
