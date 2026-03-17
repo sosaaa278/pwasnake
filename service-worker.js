@@ -1,4 +1,4 @@
-const CACHE_NAME = "snake-pwa-cachev4";
+const CACHE_NAME = "snake-pwa-cachev5";
 
 const FILES = [
     "index.html",
