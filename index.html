@@ -14,6 +14,8 @@
 <body>
     <script src="https://js.stripe.com/v3/"></script>
 
+    <button id="pay-button">Pagar MXN</button>
+
     <canvas id="tetris" width="240" height="400"></canvas>
 
     <div class="controls">
@@ -24,7 +26,7 @@
         <button id="pause">⏸</button>
     </div>
 
-    <button id="pay-button">Pagar MXN</button>
+
 
     <form id="payment-form" style="display:none;">
         <div id="payment-element"></div>
@@ -35,10 +37,11 @@
     <script>
         const stripe = Stripe("pk_test_51T6nIrE32WHzGOF1oCCB9DqIeTfGmA8D9h3rv7OCycvnowHdnHGAzUZW4XPRGhZhmVl2QJ5IjfWEP8CWodn7Psl5008z3PYRmv");
 
-        let elements;
+        let elements; // 🔥 variable global correcta
 
         document.getElementById("pay-button").addEventListener("click", async () => {
             console.log("Creating payment intent...");
+
             const response = await fetch("https://pwasnake.vercel.app/api/create-payment-intent", {
                 method: "POST",
                 headers: {
@@ -53,20 +56,20 @@
 
             document.getElementById("payment-form").style.display = "block";
 
-            const elements = stripe.elements({
+            // 🔥 AQUÍ ESTABA EL ERROR
+            elements = stripe.elements({   // ❗ quitamos "const"
                 clientSecret
             });
 
             const paymentElement = elements.create("payment");
             paymentElement.mount("#payment-element");
-
         });
 
         document.getElementById("payment-form").addEventListener("submit", async (e) => {
             e.preventDefault();
 
             const { error } = await stripe.confirmPayment({
-                elements,
+                elements, // 🔥 ahora sí existe
                 redirect: "if_required"
             });
 
@@ -74,7 +77,7 @@
                 document.getElementById("error-message").textContent = error.message;
             } else {
                 alert("Pago exitoso ✅");
-                location.reload(); // reinicia la app
+                location.reload();
             }
         });
     </script>
