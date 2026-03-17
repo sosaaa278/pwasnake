@@ -4,36 +4,43 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
 
-    // CORS headers
+    // 🔓 Permitir CORS (muy importante para GitHub Pages)
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-    // manejar preflight request
+    // 🔁 Manejar preflight (CORS)
     if (req.method === "OPTIONS") {
         return res.status(200).end();
     }
 
+    // 🚫 Solo permitir POST
     if (req.method !== "POST") {
         return res.status(405).json({ error: "Method not allowed" });
     }
 
     try {
 
+        const { amount } = req.body;
+
+        // 💳 Crear PaymentIntent
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: 1000,
+            amount: amount || 1000, // 1000 = $10.00 MXN (centavos)
             currency: "mxn",
-            automatic_payment_methods: { enabled: true }
+            automatic_payment_methods: {
+                enabled: true,
+            },
         });
 
+        // 🔑 Enviar clientSecret al frontend
         return res.status(200).json({
-            clientSecret: paymentIntent.client_secret
+            clientSecret: paymentIntent.client_secret,
         });
 
     } catch (error) {
 
         return res.status(500).json({
-            error: error.message
+            error: error.message,
         });
 
     }

@@ -62,24 +62,21 @@
 
         });
 
-        document
-            .getElementById("payment-form")
-            .addEventListener("submit", async (e) => {
+        document.getElementById("payment-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-                e.preventDefault();
-
-                const { error } = await stripe.confirmPayment({
-                    elements,
-                    confirmParams: {
-                        return_url: "http://localhost:3000/success.html",
-                    },
-                });
-
-                if (error) {
-                    document.getElementById("error-message").textContent = error.message;
-                }
-
+            const { error } = await stripe.confirmPayment({
+                elements,
+                redirect: "if_required"
             });
+
+            if (error) {
+                document.getElementById("error-message").textContent = error.message;
+            } else {
+                alert("Pago exitoso ✅");
+                location.reload(); // reinicia la app
+            }
+        });
     </script>
 
 
