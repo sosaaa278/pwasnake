@@ -22,11 +22,12 @@ canvas {
 }
 
 .controls {
-    position: fixed;
+    position: relative;
     bottom: 20px;
     display: flex;
     gap: 12px;
     user-select: none;
+    z-index: 5;
 }
 
 .controls button {
@@ -69,11 +70,8 @@ button {
 }
 
 #pay-button {
-    width: 90%;
-    padding: 15px;
-    font-size: 18px;
-    margin: 20px auto;
-    display: block;
+    position: relative;
+    z-index: 20;
 }
 
 body {
