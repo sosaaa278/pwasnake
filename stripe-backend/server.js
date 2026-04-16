@@ -10,6 +10,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 app.use(cors());
 app.use(express.json());
 
+console.log("KEY:", process.env.STRIPE_SECRET_KEY); //linea 
 app.post("/create-payment-intent", async (req, res) => {
 
     const { amount } = req.body;
