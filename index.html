@@ -62,11 +62,6 @@
 
             document.getElementById("payment-form").style.display = "block";
 
-            // 🔥 AQUÍ ESTABA EL ERROR
-            elements = stripe.elements({   // ❗ quitamos "const"
-                clientSecret: clientSecret,
-            });
-
             const paymentElement = elements.create("payment");
             paymentElement.mount("#payment-element");
         });
