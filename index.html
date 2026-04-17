@@ -39,14 +39,11 @@
         let elements = null;
         let clientSecret = null;
 
-
-
+        // 👉 CLICK EN PAGAR
         document.getElementById("pay-button").addEventListener("click", async () => {
             console.log("Creating payment intent...");
 
-            async function IniciarPago() {
-
-
+            try {
                 const response = await fetch("https://pwasnake.vercel.app/api/create-payment-intent", {
                     method: "POST",
                     headers: {
@@ -57,29 +54,38 @@
                     })
                 });
 
-                const { clientSecret } = await response.json();
+                const data = await response.json();
+                clientSecret = data.clientSecret;
 
-                const stripe = Stripe("pk_live_51T6nIZCqEjyCj47LlHjhasn2pvnAWwXVoID23kSQ8VkZpkdEPIx8Jhatdww7HLseDLltAjtnPi2RNGHu0gsO109Z00usVF3Xfg");
+                console.log("clientSecret:", clientSecret);
 
-                console.log(clientSecret);
+                if (!clientSecret) {
+                    throw new Error("No hay clientSecret");
+                }
 
-                const elements = stripe.elements({ clientSecret });
+                // ✅ USAR VARIABLES GLOBALES
+                stripe = Stripe("pk_live_51T6nIZCqEjyCj47LlHjhasn2pvnAWwXVoID23kSQ8VkZpkdEPIx8Jhatdww7HLseDLltAjtnPi2RNGHu0gsO109Z00usVF3Xfg");
 
+                elements = stripe.elements({ clientSecret });
+
+                const paymentElement = elements.create("payment");
+                paymentElement.mount("#payment-element");
 
                 document.getElementById("payment-form").style.display = "block";
 
+            } catch (err) {
+                console.error("ERROR:", err);
             }
-            const paymentElement = elements.create("payment");
-            paymentElement.mount("#payment-element");
         });
 
-        ddocument.getElementById("payment-form").addEventListener("submit", async (e) => {
+
+        // 👉 SUBMIT DEL FORM
+        document.getElementById("payment-form").addEventListener("submit", async (e) => {
             e.preventDefault();
 
             console.log("stripe:", stripe);
             console.log("elements:", elements);
 
-            // 🚨 VALIDACIÓN CLAVE
             if (!stripe || !elements) {
                 document.getElementById("error-message").textContent = "Cargando pago, espera un momento...";
                 return;
@@ -97,7 +103,6 @@
                 location.reload();
             }
         });
-
     </script>
 
 
