@@ -35,6 +35,9 @@
     </form>
 
     <script>
+        let stripe = null;
+        let elements = null;
+        let clientSecret = null;
 
 
 
@@ -69,6 +72,11 @@
 
         document.getElementById("payment-form").addEventListener("submit", async (e) => {
             e.preventDefault();
+
+            // 🔍 Debug clave
+            console.log("stripe:", stripe);
+            console.log("elements:", elements);
+
 
             const { error } = await stripe.confirmPayment({
                 elements, // 🔥 ahora sí existe
